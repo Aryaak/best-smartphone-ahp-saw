@@ -24,30 +24,53 @@ class AHPController extends Controller
         return view('pages.ahp', compact('criterias', 'pairs', 'result'));
     }
 
-
     public function store(Request $request)
     {
         $criteriaA = $request->criteria_a;
         $criteriaB = $request->criteria_b;
         $values    = $request->value;
 
-        // Kosongkan tabel AHP agar tidak tercampur
+        // Hapus semua data lama
         Ahp::truncate();
 
-        // Simpan input baru
         foreach ($criteriaA as $i => $a) {
+
+            $b = $criteriaB[$i];
+            $val = $values[$i];
+
+            // Jika user menukar posisi (B harus di kiri)
+            // maka kita simpan versi yg konsisten
+            if ($a > $b) {
+                // swap
+                $temp = $a;
+                $a = $b;
+                $b = $temp;
+
+                // nilai harus dibalik
+                $val = 1 / $val;
+            }
+
+            // Simpan A → B
             Ahp::create([
-                'uuid'             => Str::uuid(),
-                'criteria_a_uuid'  => $criteriaA[$i],
-                'criteria_b_uuid'  => $criteriaB[$i],
-                'value'            => $values[$i],
+                'uuid'            => Str::uuid(),
+                'criteria_a_uuid' => $a,
+                'criteria_b_uuid' => $b,
+                'value'           => $val,
             ]);
+
+            // Simpan B → A (kebalikannya)
+            Ahp::create([
+                'uuid'            => Str::uuid(),
+                'criteria_a_uuid' => $b,
+                'criteria_b_uuid' => $a,
+                'value'           => 1 / $val,
+            ]);
+
         }
 
         return redirect()->route('ahp.index')
-                         ->with('success', 'Data AHP berhasil disimpan');
+                        ->with('success', 'Data AHP berhasil disimpan');
     }
-
 
     private function calculate($criterias, $pairs)
     {

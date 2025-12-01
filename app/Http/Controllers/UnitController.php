@@ -8,12 +8,20 @@ use Illuminate\Support\Str;
 
 class UnitController extends Controller
 {
-    public function index()
-    {
-        $units = Unit::latest()
-        ->get();
-        return view('pages.units', compact('units'));
-    }
+   public function index(Request $request)
+{
+    $search = $request->input('search');
+
+    $units = Unit::when($search, function ($query, $search) {
+            $query->where('name', 'like', "%{$search}%");
+        })
+        ->orderBy('name', 'ASC')
+        ->paginate(5)
+        ->withQueryString();
+
+    return view('pages.units', compact('units', 'search'));
+}
+
 
     public function store(Request $request)
     {

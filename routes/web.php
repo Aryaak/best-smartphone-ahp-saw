@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CriteriaController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\AHPController;
+use App\Http\Controllers\AlternativeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,11 @@ Route::get('units', [UnitController::class, 'index'])->name('units.index');
 Route::post('units', [UnitController::class, 'store'])->name('units.store');
 Route::put('units/{uuid}', [UnitController::class, 'update'])->name('units.update');
 Route::delete('units/{uuid}', [UnitController::class, 'destroy'])->name('units.destroy');
+
+Route::get('alternatives', [AlternativeController::class, 'index'])->name('alternatives.index');
+Route::post('alternatives', [AlternativeController::class, 'store'])->name('alternatives.store');
+Route::put('alternatives/{uuid}', [AlternativeController::class, 'update'])->name('alternatives.update');
+Route::delete('alternatives/{uuid}', [AlternativeController::class, 'destroy'])->name('alternatives.destroy');
 
 Route::get('criterias', [CriteriaController::class, 'index'])->name('criterias.index');
 Route::post('criterias', [CriteriaController::class, 'store'])->name('criterias.store');

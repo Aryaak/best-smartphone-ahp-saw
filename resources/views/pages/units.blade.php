@@ -6,9 +6,20 @@
     <div class="card-body">
         <h6 class="card-title">Daftar Satuan</h6>
 
-        <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#modalCreate">
-            Tambah Satuan
-        </button>
+        <div class="mb-3 d-flex justify-content-between align-items-center">
+            <form method="GET" action="{{ route('units.index') }}" class="d-flex w-50">
+                <input type="text" name="search" class="form-control w-100" placeholder="Cari nama satuan..."
+                    value="{{ $search ?? '' }}">
+                <button class="btn btn-primary ml-2" type="submit" title="Cari">
+                    <i data-feather="search"></i>
+                </button>
+            </form>
+
+            <button class="btn btn-primary" data-toggle="modal" data-target="#modalCreate">
+                Tambah Satuan
+            </button>
+        </div>
+
 
         <div class="table-responsive">
             <table class="table">
@@ -31,17 +42,15 @@
 
                             <button class="btn btn-sm btn-primary" data-toggle="modal"
                                 data-target="#modalEdit{{ $unit->uuid }}">
-                                 <i data-feather="edit-2"></i>
+                                <i data-feather="edit-2"></i>
                             </button>
 
-                            <form action="{{ route('units.destroy', $unit->uuid) }}"
-                                method="POST"
-                                data-confirm-delete
+                            <form action="{{ route('units.destroy', $unit->uuid) }}" method="POST" data-confirm-delete
                                 class="d-inline">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-sm btn-danger">
-                                     <i data-feather="trash-2"></i>
+                                    <i data-feather="trash-2"></i>
                                 </button>
                             </form>
 
@@ -82,6 +91,11 @@
 
             </table>
         </div>
+
+        <div class="mt-3 d-flex justify-content-end">
+    {{ $units->links('layouts.pagination') }}
+</div>
+
 
     </div>
 </div>

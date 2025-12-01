@@ -9,13 +9,23 @@ use Illuminate\Support\Str;
 
 class CriteriaController extends Controller
 {
-    public function index()
-    {
-        $criterias = Criteria::with('unit')->orderBy('code')->get();
-        $units = Unit::latest()->get();
+    public function index(Request $request)
+{
+    $search = $request->input('search');
 
-        return view('pages.criterias', compact('criterias', 'units'));
-    }
+    $criterias = Criteria::with('unit')
+        ->when($search, function ($query, $search) {
+            $query->where('code', 'like', "%{$search}%")
+                  ->orWhere('name', 'like', "%{$search}%");
+        })
+        ->orderBy('code')
+        ->paginate(5)
+        ->withQueryString();
+
+    $units = Unit::latest()->get();
+
+    return view('pages.criterias', compact('criterias', 'units', 'search'));
+}
 
     public function store(Request $request)
     {

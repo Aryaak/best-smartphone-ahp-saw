@@ -39,7 +39,7 @@
 
             <li>
                 <a class="{{ request()->routeIs('alternatif.*') ? 'active' : '' }}" 
-                   href="#">
+                   href="{{ route('alternatives.index') }}">
                     <span class="nav-link-icon">
                         <i data-feather="layers"></i>
                     </span>

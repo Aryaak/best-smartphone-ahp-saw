@@ -9,13 +9,13 @@ class AHP extends Model
 {
     use HasUuids;
 
-    protected $table = 'ahp',
-              $primaryKey = 'uuid',
-              $guarded = [];
-    
     public $incrementing = false;
     public $timestamps = false;
 
+    protected $table = 'ahp',
+              $primaryKey = 'uuid',
+              $guarded = [];
+  
     public function criteriaA()
     {
         return $this->belongsTo(Criteria::class, 'criteria_a_uuid', 'uuid');

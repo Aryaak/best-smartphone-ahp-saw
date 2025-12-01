@@ -6,9 +6,19 @@
     <div class="card-body">
         <h6 class="card-title">Daftar Kriteria</h6>
 
-        <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#modalCreate">
-            Tambah Kriteria
-        </button>
+        <div class="mb-3 d-flex justify-content-between align-items-center">
+            <form method="GET" action="{{ route('criterias.index') }}" class="d-flex w-50">
+                <input type="text" name="search" class="form-control w-100"
+                    placeholder="Cari kode atau nama kriteria..." value="{{ $search ?? '' }}">
+                <button class="btn btn-primary ml-2" type="submit" title="Cari">
+                    <i data-feather="search"></i>
+                </button>
+            </form>
+
+            <button class="btn btn-primary" data-toggle="modal" data-target="#modalCreate">
+                Tambah Kriteria
+            </button>
+        </div>
 
         <div class="table-responsive">
             <table class="table">
@@ -39,21 +49,18 @@
                         <td class="text-right">
 
                             <!-- Edit Button -->
-                            <button class="btn btn-sm btn-primary"
-                                data-toggle="modal"
+                            <button class="btn btn-sm btn-primary" data-toggle="modal"
                                 data-target="#modalEdit{{ $criteria->uuid }}">
-                                 <i data-feather="edit-2"></i>
+                                <i data-feather="edit-2"></i>
                             </button>
 
                             <!-- Delete -->
-                            <form action="{{ route('criterias.destroy', $criteria->uuid) }}"
-                                method="POST"
-                                data-confirm-delete
-                                class="d-inline">
+                            <form action="{{ route('criterias.destroy', $criteria->uuid) }}" method="POST"
+                                data-confirm-delete class="d-inline">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-sm btn-danger">
-                                     <i data-feather="trash-2"></i>
+                                    <i data-feather="trash-2"></i>
                                 </button>
                             </form>
 
@@ -90,8 +97,11 @@
                                         <div class="form-group">
                                             <label>Tipe</label>
                                             <select name="type" class="form-control" required>
-                                                <option value="benefit" {{ $criteria->type == 'benefit' ? 'selected' : '' }}>Benefit</option>
-                                                <option value="cost" {{ $criteria->type == 'cost' ? 'selected' : '' }}>Cost</option>
+                                                <option value="benefit"
+                                                    {{ $criteria->type == 'benefit' ? 'selected' : '' }}>Benefit
+                                                </option>
+                                                <option value="cost" {{ $criteria->type == 'cost' ? 'selected' : '' }}>
+                                                    Cost</option>
                                             </select>
                                         </div>
 
@@ -99,10 +109,10 @@
                                             <label>Satuan</label>
                                             <select name="unit_uuid" class="form-control" required>
                                                 @foreach ($units as $unit)
-                                                    <option value="{{ $unit->uuid }}"
-                                                        {{ $criteria->unit_uuid == $unit->uuid ? 'selected' : '' }}>
-                                                        {{ $unit->name }}
-                                                    </option>
+                                                <option value="{{ $unit->uuid }}"
+                                                    {{ $criteria->unit_uuid == $unit->uuid ? 'selected' : '' }}>
+                                                    {{ $unit->name }}
+                                                </option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -124,6 +134,11 @@
             </table>
         </div>
 
+        <div class="mt-3 d-flex justify-content-end">
+            {{ $criterias->links('layouts.pagination') }}
+        </div>
+
+
     </div>
 </div>
 
@@ -143,12 +158,14 @@
 
                     <div class="form-group">
                         <label>Code</label>
-                        <input type="text" name="code" class="form-control" required placeholder="Masukkan kode kriteria">
+                        <input type="text" name="code" class="form-control" required
+                            placeholder="Masukkan kode kriteria">
                     </div>
 
                     <div class="form-group">
                         <label>Nama</label>
-                        <input type="text" name="name" class="form-control" required placeholder="Masukkan nama kriteria">
+                        <input type="text" name="name" class="form-control" required
+                            placeholder="Masukkan nama kriteria">
                     </div>
 
                     <div class="form-group">
@@ -163,7 +180,7 @@
                         <label>Satuan</label>
                         <select name="unit_uuid" class="form-control" required>
                             @foreach ($units as $unit)
-                                <option value="{{ $unit->uuid }}">{{ $unit->name }}</option>
+                            <option value="{{ $unit->uuid }}">{{ $unit->name }}</option>
                             @endforeach
                         </select>
                     </div>
