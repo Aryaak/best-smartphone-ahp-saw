@@ -4,24 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Unit;
 use Carbon\Carbon;
 
-class Criteria extends Model
+class Unit extends Model
 {
     use HasUuids;
 
     protected $primaryKey = 'uuid',
               $guarded = [];
-
-    public function unit(){
-        return $this->belongsTo(Unit::class);
-    }
-
-    public function values()
-    {
-        return $this->hasMany(CriteriaValue::class);
-    }
 
     public function getCreatedAtAttribute($value)
     {

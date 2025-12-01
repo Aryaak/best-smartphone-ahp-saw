@@ -31,7 +31,7 @@ $(function () {
     colors.danger = '#' + fullColorHex(colors.danger[0], colors.danger[1], colors.danger[2]);
     colors.warning = '#' + fullColorHex(colors.warning[0], colors.warning[1], colors.warning[2]);
 
-    $('#recent-orders').DataTable({
+    $('.table-datatable').DataTable({
         lengthMenu: [5, 10],
         "columnDefs": [{
             "targets": 5,
