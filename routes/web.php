@@ -6,6 +6,7 @@ use App\Http\Controllers\CriteriaController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\AHPController;
 use App\Http\Controllers\AlternativeController;
+use App\Http\Controllers\SAWController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,8 +36,10 @@ Route::post('criterias', [CriteriaController::class, 'store'])->name('criterias.
 Route::put('criterias/{uuid}', [CriteriaController::class, 'update'])->name('criterias.update');
 Route::delete('criterias/{uuid}', [CriteriaController::class, 'destroy'])->name('criterias.destroy');
 
-Route::get('/ahp', [AhpController::class, 'index'])->name('ahp.index');
-Route::post('/ahp', [AhpController::class, 'store'])->name('ahp.store');
+Route::get('ahp', [AHPController::class, 'index'])->name('ahp.index');
+Route::post('ahp', [AHPController::class, 'store'])->name('ahp.store');
+
+Route::get('saw', [SAWController::class, 'index'])->name('saw.index');
 
 Auth::routes();
 

@@ -76,25 +76,21 @@ class AHPController extends Controller
     {
         $n = count($criterias);
 
-        // =======================================================
-        // 1. BANGUN MATRKS PERBANDINGAN (NxN)
-        // =======================================================
+        // 1. MATRKS PERBANDINGAN
         $matrix = [];
 
         foreach ($criterias as $i => $a) {
             foreach ($criterias as $j => $b) {
 
                 if ($i == $j) {
-                    $matrix[$i][$j] = 1; // diagonal
+                    $matrix[$i][$j] = 1;
                 } else {
 
-                    // data langsung
                     $pair = $pairs
                         ->where('criteria_a_uuid', $a->uuid)
                         ->where('criteria_b_uuid', $b->uuid)
                         ->first();
 
-                    // data kebalikan
                     $pair_rev = $pairs
                         ->where('criteria_a_uuid', $b->uuid)
                         ->where('criteria_b_uuid', $a->uuid)
@@ -105,16 +101,13 @@ class AHPController extends Controller
                     } elseif ($pair_rev) {
                         $matrix[$i][$j] = 1 / $pair_rev->value;
                     } else {
-                        $matrix[$i][$j] = 1; // fallback
+                        $matrix[$i][$j] = 1;
                     }
                 }
             }
         }
 
-
-        // =======================================================
         // 2. JUMLAH KOLOM
-        // =======================================================
         $colSum = [];
 
         for ($j = 0; $j < $n; $j++) {
@@ -126,9 +119,7 @@ class AHPController extends Controller
         }
 
 
-        // =======================================================
         // 3. NORMALISASI MATRKS
-        // =======================================================
         $normalized = [];
 
         for ($i = 0; $i < $n; $i++) {
@@ -138,19 +129,18 @@ class AHPController extends Controller
         }
 
 
-        // =======================================================
-        // 4. HITUNG PRIORITAS (BOBOT / EIGEN VECTOR)
-        // =======================================================
-        $weights = [];
-
+      // 4. HITUNG PRIORITAS (BOBOT / EIGEN VECTOR)
+    $weights = [];
         for ($i = 0; $i < $n; $i++) {
             $weights[$i] = array_sum($normalized[$i]) / $n;
+
+            $criterias[$i]->value = $weights[$i];
+            $criterias[$i]->save();
         }
 
 
-        // =======================================================
+
         // 5. MATRIKS PENJUMLAHAN (Weighted Sum Matrix)
-        // =======================================================
         $sumMatrix = [];
 
         for ($i = 0; $i < $n; $i++) {
@@ -166,9 +156,7 @@ class AHPController extends Controller
         }
 
 
-        // =======================================================
         // 6. HITUNG λmax
-        // =======================================================
         $lambda = 0;
 
         for ($i = 0; $i < $n; $i++) {
@@ -178,9 +166,7 @@ class AHPController extends Controller
         $lambdaMax = $lambda / $n;
 
 
-        // =======================================================
         // 7. CI dan CR
-        // =======================================================
         $CI = ($lambdaMax - $n) / ($n - 1);
 
         // Random Index (RI)
@@ -192,10 +178,6 @@ class AHPController extends Controller
 
         $CR = ($RI[$n] == 0) ? 0 : $CI / $RI[$n];
 
-
-        // =======================================================
-        // RETURN KE VIEW
-        // =======================================================
         return [
             'matrix'     => $matrix,
             'colSum'     => $colSum,

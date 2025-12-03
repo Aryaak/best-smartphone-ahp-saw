@@ -59,7 +59,7 @@
 
             <li>
                 <a class="{{ request()->routeIs('saw.*') ? 'active' : '' }}" 
-                   href="#">
+                   href="{{ route('saw.index') }}">
                     <span class="nav-link-icon">
                         <i data-feather="activity"></i>
                     </span>

@@ -19,7 +19,7 @@ public function index(Request $request)
             $query->where('code', 'like', "%{$search}%")
                   ->orWhere('name', 'like', "%{$search}%");
         })
-        ->orderBy('code', 'ASC')
+        ->oldest()
         ->paginate(5)
         ->withQueryString();
 
