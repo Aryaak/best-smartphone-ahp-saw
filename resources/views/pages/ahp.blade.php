@@ -62,14 +62,19 @@
                                         <input type="hidden" name="criteria_a[]" value="{{ $a->uuid }}" class="a-field">
                                         <input type="hidden" name="criteria_b[]" value="{{ $b->uuid }}" class="b-field">
 
-                                        <select name="value[]" class="form-control mx-2">
-                                            @foreach ([1,2,3,4,5,6,7,8,9] as $n)
-                                            <option value="{{ $n }}"
-                                                {{ ($existing && $existing->value==$n) ? 'selected' : '' }}>
-                                                {{ $n }}
-                                            </option>
-                                            @endforeach
+                                        <select name="value[]" class="form-control mx-2" required>
+                                            <option selected disabled>Pilih Poin Kepentingan</option>
+                                            <option value="1">1 - Sama Penting</option>
+                                            <option value="2">2 - Mendekati Sedikit Lebih Penting</option>
+                                            <option value="3">3 - Sedikit Lebih Penting</option>
+                                            <option value="4">4 - Mendekati Lebih Penting</option>
+                                            <option value="5">5 - Lebih Penting</option>
+                                            <option value="6">6 - Mendekati Sedikit Mutlak Lebih Penting</option>
+                                            <option value="7">7 - Sedikit Mutlak Lebih Penting</option>
+                                            <option value="8">8 - Mendekati Mutlak Lebih Penting</option>
+                                            <option value="9">9 - Mutlak Lebih Penting</option>
                                         </select>
+
 
                                         <button type="button" class="btn btn-sm btn-warning switch-btn">
                                             ⇆
@@ -88,7 +93,7 @@
                         </tbody>
                     </table>
 
-                    <button class="btn btn-primary">Simpan</button>
+                    <button class="btn btn-primary">Hitung Bobot</button>
                 </form>
             </div>
 
@@ -148,7 +153,7 @@
                         @endforeach
 
                         <td>{{ number_format($rowSum, 2) }}</td>
-                        <td>{{ number_format($result['weights'][$i], 11) }}</td>
+                        <td>{{ number_format($result['weights'][$i], 10) }}</td>
                     </tr>
                     @endforeach
                 </table>

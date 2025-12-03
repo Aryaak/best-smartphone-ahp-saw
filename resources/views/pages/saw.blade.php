@@ -26,6 +26,7 @@
                         <thead>
                             <tr>
                                 <th>Kode</th>
+                                <th>Gambar</th>
                                 <th>Nama</th>
                                 @foreach($criterias as $c)
                                     <th>{{ $c->code }}</th>
@@ -36,6 +37,9 @@
                             @foreach($alternatives as $alt)
                             <tr>
                                 <td>{{ $alt['code'] }}</td>
+                                <td>
+                                    <img src="{{ asset('storage/'.$alt['image']) }}" alt="{{ $alt['name'] }}" width="50">
+                                </td>
                                 <td>{{ $alt['name'] }}</td>
                                 @foreach($criterias as $c)
                                     <td>{{ $alt['values'][$c->code] ?? 0 }}</td>
@@ -52,6 +56,7 @@
                         <thead>
                             <tr>
                                 <th>Kode</th>
+                                <th>Gambar</th>
                                 <th>Nama</th>
                                 @foreach($criterias as $c)
                                     <th>{{ $c->code }}</th>
@@ -62,6 +67,9 @@
                             @foreach($normalized as $alt)
                             <tr>
                                 <td>{{ $alt['code'] }}</td>
+                                <td>
+                                    <img src="{{ asset('storage/'.$alt['image']) }}" alt="{{ $alt['name'] }}" width="50">
+                                </td>
                                 <td>{{ $alt['name'] }}</td>
                                 @foreach($criterias as $c)
                                     <td>{{ $alt['values'][$c->code] ?? 0 }}</td>
@@ -81,6 +89,7 @@
                         <thead>
                             <tr>
                                 <th>Kode</th>
+                                <th>Gambar</th>
                                 <th>Nama</th>
                                 @foreach($criterias as $c)
                                     <th>{{ $c->code }}</th>
@@ -92,6 +101,9 @@
                             @foreach($weightedSum as $alt)
                             <tr>
                                 <td>{{ $alt['code'] }}</td>
+                                <td>
+                                    <img src="{{ asset('storage/'.$alt['image']) }}" alt="{{ $alt['name'] }}" width="50">
+                                </td>
                                 <td>{{ $alt['name'] }}</td>
                                 @foreach($criterias as $c)
                                     <td>{{ $alt['weighted'][$c->code] ?? 0 }}</td>
@@ -113,6 +125,7 @@
                             <tr>
                                 <th>Rank</th>
                                 <th>Kode</th>
+                                <th>Gambar</th>
                                 <th>Nama</th>
                                 <th>Total</th>
                             </tr>
@@ -122,6 +135,9 @@
                             <tr>
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $alt['code'] }}</td>
+                                <td>
+                                    <img src="{{ asset('storage/'.$alt['image']) }}" alt="{{ $alt['name'] }}" width="50">
+                                </td>
                                 <td>{{ $alt['name'] }}</td>
                                 <td>{{ $alt['total'] ?? 0 }}</td>
                             </tr>

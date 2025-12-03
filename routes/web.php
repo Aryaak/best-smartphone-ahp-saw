@@ -41,5 +41,7 @@ Route::post('ahp', [AHPController::class, 'store'])->name('ahp.store');
 
 Route::get('saw', [SAWController::class, 'index'])->name('saw.index');
 
+Route::get('test', [AlternativeController::class, 'test']);
+
 Auth::routes();
 

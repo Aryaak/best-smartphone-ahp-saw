@@ -42,6 +42,7 @@ class SawController extends Controller
 
             $normalized[] = [
                 'code' => $alt->code,
+                'image' => $alt->image,
                 'name' => $alt->name,
                 'values' => $normValues
             ];
@@ -60,6 +61,7 @@ class SawController extends Controller
 
             $weightedSum[] = [
                 'code' => $alt['code'],
+                'image' => $alt['image'],
                 'name' => $alt['name'],
                 'weighted' => $weighted,
                 'total' => $total
