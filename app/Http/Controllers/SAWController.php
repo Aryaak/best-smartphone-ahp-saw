@@ -13,6 +13,7 @@ class SawController extends Controller
         $criterias = Criteria::orderBy('code')->get();
         $alternatives = Alternative::with('criterias')->oldest()->get();
 
+
         // Normalisasi matriks (presisi tinggi)
         $normalized = [];
         foreach($alternatives as $alt){
@@ -68,9 +69,13 @@ class SawController extends Controller
             ];
         }
 
+        
+
         // Ranking berdasarkan total descending
         $ranking = $weightedSum;
         usort($ranking, fn($a, $b) => bccomp($b['total'], $a['total'], 12));
+
+
 
         return view('pages.saw', compact('criterias', 'alternatives', 'normalized', 'weightedSum', 'ranking'));
     }

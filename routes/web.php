@@ -7,41 +7,42 @@ use App\Http\Controllers\UnitController;
 use App\Http\Controllers\AHPController;
 use App\Http\Controllers\AlternativeController;
 use App\Http\Controllers\SAWController;
+use App\Http\Controllers\LoginController;
+
 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
 */
 
-Route::get('/', [DashboardController::class, 'index'])->name('index');
+Route::get('/login', [LoginController::class, 'showLogin'])->name('login');
+Route::post('/login', [LoginController::class, 'login'])->name('login.process');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('units', [UnitController::class, 'index'])->name('units.index');
-Route::post('units', [UnitController::class, 'store'])->name('units.store');
-Route::put('units/{uuid}', [UnitController::class, 'update'])->name('units.update');
-Route::delete('units/{uuid}', [UnitController::class, 'destroy'])->name('units.destroy');
+// ROUTE YANG DIKUNCI LOGIN
+Route::middleware('check.auth')->group(function () {
 
-Route::get('alternatives', [AlternativeController::class, 'index'])->name('alternatives.index');
-Route::post('alternatives', [AlternativeController::class, 'store'])->name('alternatives.store');
-Route::put('alternatives/{uuid}', [AlternativeController::class, 'update'])->name('alternatives.update');
-Route::delete('alternatives/{uuid}', [AlternativeController::class, 'destroy'])->name('alternatives.destroy');
+    Route::get('/', [DashboardController::class, 'index'])->name('index');
 
-Route::get('criterias', [CriteriaController::class, 'index'])->name('criterias.index');
-Route::post('criterias', [CriteriaController::class, 'store'])->name('criterias.store');
-Route::put('criterias/{uuid}', [CriteriaController::class, 'update'])->name('criterias.update');
-Route::delete('criterias/{uuid}', [CriteriaController::class, 'destroy'])->name('criterias.destroy');
+    Route::get('units', [UnitController::class, 'index'])->name('units.index');
+    Route::post('units', [UnitController::class, 'store'])->name('units.store');
+    Route::put('units/{uuid}', [UnitController::class, 'update'])->name('units.update');
+    Route::delete('units/{uuid}', [UnitController::class, 'destroy'])->name('units.destroy');
 
-Route::get('ahp', [AHPController::class, 'index'])->name('ahp.index');
-Route::post('ahp', [AHPController::class, 'store'])->name('ahp.store');
+    Route::get('alternatives', [AlternativeController::class, 'index'])->name('alternatives.index');
+    Route::post('alternatives', [AlternativeController::class, 'store'])->name('alternatives.store');
+    Route::put('alternatives/{uuid}', [AlternativeController::class, 'update'])->name('alternatives.update');
+    Route::delete('alternatives/{uuid}', [AlternativeController::class, 'destroy'])->name('alternatives.destroy');
 
-Route::get('saw', [SAWController::class, 'index'])->name('saw.index');
+    Route::get('criterias', [CriteriaController::class, 'index'])->name('criterias.index');
+    Route::post('criterias', [CriteriaController::class, 'store'])->name('criterias.store');
+    Route::put('criterias/{uuid}', [CriteriaController::class, 'update'])->name('criterias.update');
+    Route::delete('criterias/{uuid}', [CriteriaController::class, 'destroy'])->name('criterias.destroy');
 
-Route::get('test', [AlternativeController::class, 'test']);
+    Route::get('ahp', [AHPController::class, 'index'])->name('ahp.index');
+    Route::post('ahp', [AHPController::class, 'store'])->name('ahp.store');
 
-Auth::routes();
+    Route::get('saw', [SAWController::class, 'index'])->name('saw.index');
+});
 

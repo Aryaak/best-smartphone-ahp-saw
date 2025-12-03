@@ -26,9 +26,9 @@
                     <a href="" class="nav-link dropdown-toggle" title="User menu" data-toggle="dropdown">
                         <span class="ml-2 d-sm-inline d-none">Superadmin</span>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right btn btn-danger">
-                        <a href="{{ route('logout') }}" class="text-light" data-sidebar-target="#settings">Keluar</a>
-                    </div>
+                    <a href="{{ route('logout') }}" class="dropdown-menu dropdown-menu-right btn btn-danger">
+                        <span  class="text-light" >Keluar</span>
+                    </a>
                 </li>
             </ul>
         </div>

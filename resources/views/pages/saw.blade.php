@@ -41,8 +41,8 @@
                                     <img src="{{ asset('storage/'.$alt['image']) }}" alt="{{ $alt['name'] }}" width="50">
                                 </td>
                                 <td>{{ $alt['name'] }}</td>
-                                @foreach($criterias as $c)
-                                    <td>{{ $alt['values'][$c->code] ?? 0 }}</td>
+                                @foreach($criterias as $index => $c)
+                                    <td>{{ number_format($alt['criterias'][$index]['value'], 2) ?? 0 }}</td>
                                 @endforeach
                             </tr>
                             @endforeach

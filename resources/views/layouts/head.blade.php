@@ -21,6 +21,8 @@
 
     <!-- App css -->
     <link rel="stylesheet" href="{{ asset('assets/css/app.min.css') }}" type="text/css">
+
+    @stack('styles')
 </head>
 
 <body class="horizontal-navigation">
